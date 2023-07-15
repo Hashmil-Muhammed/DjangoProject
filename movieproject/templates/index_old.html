@@ -1,0 +1,92 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body> {% endcomment %}
+   {% comment %}//{{movie_list}}//  {% endcomment %}
+   {% comment %} {% for i in movie_list %}
+   {{i.id}}-->{{i.name}}---->{{i.desc}}--->{{i.year}}<br>
+   {% endfor %}
+</body>
+</html>  {% endcomment %}
+
+
+
+{% comment %} # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# Detail View part2 (link generate){% endcomment %}
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+   {% for i in movie_list %}
+   //<a href="movie/{{i.id}}">{{i.name}}<br>//
+   <a href="www.google.com">{{i.name}}<br>
+   {% endfor %}
+</body>
+</html>  {% endcomment %}
+
+
+{% comment %} # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# Detail View part2 (link generate){% endcomment %}
+{% comment %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+   {% for i in movie_list %}
+   <a href="{% url 'detail' i.id %}">{{i.name}}<br>
+   {% endfor %}
+</body>
+</html>  {% endcomment %}
+
+
+{% comment %} # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# Name space in django{% endcomment %}
+{% comment %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+   {% for i in movie_list %}
+   <a href="{% url 'movieapp:detail' i.id %}">{{i.name}}<br>
+   {% endfor %}
+</body>
+</html>  {% endcomment %}
+
+{% comment %} # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# Load static files{% endcomment %}
+
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+   //Navbar//
+   <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+         Online movie store
+      </a>
+   </nav>
+   {% for i in movie_list %}
+   <a href="{% url 'movieapp:detail' i.id %}">{{i.name}}<br>
+   {% endfor %}
+</body>
+</html>  {% endcomment %}
+
+{% comment %} # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# Base template {% endcomment %}
+
+{% comment %} {% extends 'base.html' %}
+{% block body %}
+{% for i in movie_list %}
+<img src="{{i.img.url}}"  width="100" height="100">
+<a href="{% url 'movieapp:detail' i.id %}">{{i.name}}<br>
+{% endfor %}
+{% endblock %} {% endcomment %}

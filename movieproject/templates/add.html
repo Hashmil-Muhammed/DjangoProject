@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" enctype="multipart/form-data"> 
+                    {% comment %} enctype = img file DB manasilavan {% endcomment %}
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Enter your movie name">
+    <input type="text" name="desc" placeholder="Enter your movie description">
+    <input type="text" name="year" placeholder="Enter your movie year">
+    <input type="file" name="img">
+    <input type="submit">
+</form>
+{% endblock %}
