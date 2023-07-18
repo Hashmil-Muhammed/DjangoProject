@@ -1,0 +1,88 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{ category.description|truncatewords:155 }}
+    {% else %}
+        welcome to Eflyer store where you can buys different items...
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ category.name }} - Eflyer store
+    {% else %}
+        See our new collections -Eflyer store
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+<div>
+    <div class="row my_row_class">
+        <div class="mx-auto">
+            <p><a href="{% url 'shopapp:allProdCat' %}">Our Product Collections</a></p>
+    </div>
+        </div>
+</div>
+{% endif %}
+<div class="mx_auto">
+    {% if category %}
+        <img class="my_image" src="{{category.image.url}}" alt="{{category.name}}">
+</div>
+    <br>
+<div>
+    <h1 class="text-center my_title">{{category.name}}</h1>
+    <p class="text-justify">{{category.description}}</p>
+    <br>
+    <br>
+    <br>
+</div>
+{% else %}
+<div>
+    <img class="my_image my_image_padding"src="{% static 'img/banner.png' %}" alt="our Products" width="1300px">
+</div>
+<br>
+<div>
+    <h1 class="text-center my_title"> Our Product Collections</h1>
+    <p class=" text-justify my_description">A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and benefits of the product so they're compelled to buy.</p>
+</div>
+<br>
+<br>    
+<br>
+{% endif %}
+<div class="container">
+    <div class="row">
+        {% for product in products.object_list %}
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md-4 xol-lg-4" >
+            <div class="text-center block" styles="min-width:18rem;">
+                <br>
+                <br>
+                {% comment %} <div class="list"> {% endcomment %}
+                <a href="{{product.get_url}}"><img class="card-card-img-top my_image"src="{{product.image.url}}" alt="{{product.name}}" width="330px;" height="330px;"></a>
+                {% comment %} </div> {% endcomment %}
+            <div class="card-body">
+                <h4>{{product.name}}</h4>
+                <p>{{product.price}}</p>
+                <br>
+                <br>    
+                <br>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="mx-auto">
+            {% if products.paginator.num_pages > 1 %}
+            <hr style="color: #ffffff;">
+            <div class="text-center">
+                {% for pg in products.paginator.page_range %}
+                <a href="?page={{pg}}" class="btn btn-dark btn-sm" {% if products.number == pg %} active {% endif %}>{{pg}}</a> 
+                {% endfor %}               
+            </div>
+            {% endif %}
+        </div>
+        <br>
+    </div>
+</div>
+{% endblock %}
+
